@@ -1,0 +1,47 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: microservicecloud-dept
+  datasource:
+    # 配置数据源
+    driver-class-name: com.mysql.jdbc.Driver
+    # 使用druid连接池
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/study_cloud_02?characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&useSSL=true
+    username: root
+    password: root
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      table-underline: true
+      db-type: mysql
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+  mapper-locations: classpath:/mapper/*.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/ # 设置与Eureka Server交互的地址查询服务和注册服务
+  instance:
+    instance-id: microservicecloud-dept8002
+    prefer-ip-address: true
+
+info:
+  app.name: microservicecloud-dept
+  company.name: www.yuan.com
+  build.artifactId: @project.artifactId@
+  build.version: @project.version@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
